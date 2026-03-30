@@ -1,0 +1,533 @@
+/* Books Store Admin Custom Design */
+
+/* Import Google Fonts */
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Inter:wght@300;400;500;600;700&display=swap');
+
+:root {
+    --admin-primary: #2c3e50;
+    --admin-secondary: #e74c3c;
+    --admin-accent: #f39c12;
+    --admin-text: #2c3e50;
+    --admin-light: #ecf0f1;
+    --admin-white: #ffffff;
+    --admin-shadow: rgba(0, 0, 0, 0.1);
+    --admin-gradient: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+}
+
+/* Global Admin Styles */
+body {
+    font-family: 'Inter', sans-serif !important;
+    background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+    min-height: 100vh;
+}
+
+/* Header */
+#header {
+    background: var(--admin-gradient) !important;
+    box-shadow: 0 4px 20px var(--admin-shadow);
+    border-bottom: 3px solid var(--admin-primary);
+}
+
+#header h1 {
+    font-family: 'Playfair Display', serif !important;
+    font-size: 2rem !important;
+    font-weight: 700 !important;
+    color: white !important;
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
+}
+
+#branding h1, #branding h1 a:link, #branding h1 a:visited {
+    color: white !important;
+    font-family: 'Playfair Display', serif !important;
+}
+
+/* Navigation */
+#nav-sidebar {
+    background: var(--admin-white) !important;
+    box-shadow: 2px 0 15px var(--admin-shadow);
+    border-right: 3px solid var(--admin-primary);
+}
+
+#nav-sidebar .nav-item {
+    border-bottom: 1px solid rgba(0,0,0,0.05);
+}
+
+#nav-sidebar .nav-item a {
+    color: var(--admin-text) !important;
+    font-weight: 500 !important;
+    padding: 12px 20px !important;
+    transition: all 0.3s ease !important;
+    border-radius: 8px !important;
+    margin: 4px 8px !important;
+}
+
+#nav-sidebar .nav-item a:hover {
+    background: linear-gradient(135deg, var(--admin-primary), var(--admin-secondary)) !important;
+    color: white !important;
+    transform: translateX(5px) !important;
+}
+
+#nav-sidebar .nav-item.active a {
+    background: linear-gradient(135deg, var(--admin-primary), var(--admin-secondary)) !important;
+    color: white !important;
+}
+
+/* Main Content */
+#main {
+    background: var(--admin-white) !important;
+    border-radius: 15px !important;
+    box-shadow: 0 4px 20px var(--admin-shadow);
+    margin: 20px !important;
+    padding: 30px !important;
+}
+
+/* Breadcrumbs */
+.breadcrumbs {
+    background: rgba(44, 62, 80, 0.05) !important;
+    padding: 15px 20px !important;
+    border-radius: 10px !important;
+    border: 1px solid rgba(44, 62, 80, 0.1);
+    margin-bottom: 20px !important;
+}
+
+.breadcrumbs a {
+    color: var(--admin-primary) !important;
+    font-weight: 500 !important;
+    text-decoration: none !important;
+    transition: color 0.3s ease !important;
+}
+
+.breadcrumbs a:hover {
+    color: var(--admin-secondary) !important;
+}
+
+/* Page Headers */
+#content h1 {
+    font-family: 'Playfair Display', serif !important;
+    color: var(--admin-text) !important;
+    font-size: 2.5rem !important;
+    margin-bottom: 10px !important;
+    border-bottom: 3px solid var(--admin-primary);
+    padding-bottom: 10px !important;
+}
+
+/* Object Tools */
+.object-tools {
+    background: var(--admin-white) !important;
+    padding: 15px !important;
+    border-radius: 10px !important;
+    box-shadow: 0 2px 10px var(--admin-shadow);
+    margin-bottom: 20px !important;
+}
+
+.object-tools li {
+    margin: 5px 10px !important;
+}
+
+.object-tools a {
+    background: linear-gradient(135deg, var(--admin-primary), var(--admin-secondary)) !important;
+    color: white !important;
+    padding: 10px 20px !important;
+    border-radius: 25px !important;
+    text-decoration: none !important;
+    font-weight: 500 !important;
+    transition: all 0.3s ease !important;
+    border: none !important;
+}
+
+.object-tools a:hover {
+    transform: translateY(-2px) !important;
+    box-shadow: 0 4px 15px var(--admin-shadow) !important;
+}
+
+/* Tables */
+#result_list {
+    background: var(--admin-white) !important;
+    border-radius: 10px !important;
+    overflow: hidden !important;
+    box-shadow: 0 2px 15px var(--admin-shadow);
+}
+
+#result_list thead th {
+    background: linear-gradient(135deg, var(--admin-primary), var(--admin-secondary)) !important;
+    color: white !important;
+    font-weight: 600 !important;
+    padding: 15px !important;
+    border: none !important;
+}
+
+#result_list tbody tr {
+    transition: all 0.3s ease !important;
+}
+
+#result_list tbody tr:hover {
+    background: rgba(44, 62, 80, 0.05) !important;
+    transform: scale(1.01) !important;
+}
+
+#result_list tbody td {
+    padding: 15px !important;
+    border-bottom: 1px solid rgba(0,0,0,0.05) !important;
+}
+
+/* Forms */
+.form-row {
+    background: var(--admin-white) !important;
+    padding: 20px !important;
+    border-radius: 10px !important;
+    margin-bottom: 20px !important;
+    box-shadow: 0 2px 10px var(--admin-shadow);
+}
+
+.form-row label {
+    color: var(--admin-text) !important;
+    font-weight: 600 !important;
+    margin-bottom: 8px !important;
+}
+
+.form-row input, .form-row select, .form-row textarea {
+    border: 2px solid rgba(44, 62, 80, 0.2) !important;
+    border-radius: 8px !important;
+    padding: 12px !important;
+    transition: all 0.3s ease !important;
+    font-family: 'Inter', sans-serif !important;
+}
+
+.form-row input:focus, .form-row select:focus, .form-row textarea:focus {
+    border-color: var(--admin-primary) !important;
+    box-shadow: 0 0 0 3px rgba(44, 62, 80, 0.1) !important;
+    outline: none !important;
+}
+
+/* Buttons */
+.button, input[type=submit], input[type=button], .submit-row input {
+    background: linear-gradient(135deg, var(--admin-primary), var(--admin-secondary)) !important;
+    color: white !important;
+    border: none !important;
+    padding: 12px 25px !important;
+    border-radius: 25px !important;
+    font-weight: 600 !important;
+    cursor: pointer !important;
+    transition: all 0.3s ease !important;
+    text-transform: uppercase !important;
+    letter-spacing: 0.5px !important;
+}
+
+.button:hover, input[type=submit]:hover, input[type=button]:hover, .submit-row input:hover {
+    transform: translateY(-2px) !important;
+    box-shadow: 0 4px 15px var(--admin-shadow) !important;
+}
+
+.default {
+    background: linear-gradient(135deg, #95a5a6, #7f8c8d) !important;
+}
+
+.delete {
+    background: linear-gradient(135deg, #e74c3c, #c0392b) !important;
+}
+
+/* MPTT Tree Admin */
+.mptt-tree {
+    background: var(--admin-white) !important;
+    border-radius: 10px !important;
+    padding: 20px !important;
+    box-shadow: 0 2px 15px var(--admin-shadow);
+}
+
+.mptt-tree .tree-node {
+    border-left: 3px solid var(--admin-primary) !important;
+    padding-left: 15px !important;
+    margin-left: 10px !important;
+}
+
+.mptt-tree .tree-node:hover {
+    background: rgba(44, 62, 80, 0.05) !important;
+    border-radius: 8px !important;
+}
+
+/* Messages */
+.messagelist {
+    background: var(--admin-white) !important;
+    border-radius: 10px !important;
+    box-shadow: 0 2px 15px var(--admin-shadow);
+    margin-bottom: 20px !important;
+}
+
+.messagelist li {
+    padding: 15px 20px !important;
+    margin: 10px 0 !important;
+    border-radius: 8px !important;
+    border-left: 4px solid var(--admin-primary) !important;
+}
+
+.messagelist .success {
+    border-left-color: #27ae60 !important;
+    background: rgba(39, 174, 96, 0.1) !important;
+}
+
+.messagelist .error {
+    border-left-color: #e74c3c !important;
+    background: rgba(231, 76, 60, 0.1) !important;
+}
+
+.messagelist .warning {
+    border-left-color: #f39c12 !important;
+    background: rgba(243, 156, 18, 0.1) !important;
+}
+
+/* Footer */
+#footer {
+    background: var(--admin-primary) !important;
+    color: white !important;
+    text-align: center !important;
+    padding: 20px !important;
+    border-top: 3px solid var(--admin-secondary);
+}
+
+/* Admin Dashboard Styles */
+.admin-dashboard {
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.dashboard-header {
+    text-align: center;
+    margin-bottom: 40px;
+    padding: 30px;
+    background: linear-gradient(135deg, var(--admin-primary), var(--admin-secondary));
+    color: white;
+    border-radius: 15px;
+    box-shadow: 0 4px 20px var(--admin-shadow);
+}
+
+.dashboard-header h2 {
+    font-family: 'Playfair Display', serif !important;
+    font-size: 2.5rem !important;
+    margin-bottom: 10px !important;
+    color: white !important;
+}
+
+.dashboard-header p {
+    font-size: 1.1rem !important;
+    opacity: 0.9 !important;
+    margin: 0 !important;
+}
+
+.dashboard-stats {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 20px;
+    margin-bottom: 40px;
+}
+
+.stat-card {
+    background: var(--admin-white) !important;
+    border-radius: 15px !important;
+    padding: 25px !important;
+    box-shadow: 0 4px 20px var(--admin-shadow) !important;
+    display: flex !important;
+    align-items: center !important;
+    gap: 20px !important;
+    transition: all 0.3s ease !important;
+    border: 1px solid rgba(44, 62, 80, 0.1) !important;
+}
+
+.stat-card:hover {
+    transform: translateY(-5px) !important;
+    box-shadow: 0 8px 30px var(--admin-shadow) !important;
+}
+
+.stat-icon {
+    width: 60px !important;
+    height: 60px !important;
+    border-radius: 50% !important;
+    background: linear-gradient(135deg, var(--admin-primary), var(--admin-secondary)) !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    color: white !important;
+    font-size: 1.5rem !important;
+}
+
+.stat-content h3 {
+    font-size: 2rem !important;
+    font-weight: 700 !important;
+    color: var(--admin-text) !important;
+    margin: 0 0 5px 0 !important;
+}
+
+.stat-content p {
+    color: var(--admin-light) !important;
+    margin: 0 !important;
+    font-size: 0.9rem !important;
+}
+
+.admin-modules {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+    gap: 30px;
+}
+
+.app-module {
+    background: var(--admin-white) !important;
+    border-radius: 15px !important;
+    box-shadow: 0 4px 20px var(--admin-shadow) !important;
+    overflow: hidden !important;
+    border: 1px solid rgba(44, 62, 80, 0.1) !important;
+}
+
+.module-header {
+    background: linear-gradient(135deg, var(--admin-primary), var(--admin-secondary)) !important;
+    padding: 20px !important;
+    text-align: center !important;
+}
+
+.module-header h3 {
+    color: white !important;
+    font-family: 'Playfair Display', serif !important;
+    font-size: 1.5rem !important;
+    margin: 0 !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    gap: 10px !important;
+}
+
+.module-content {
+    padding: 20px !important;
+}
+
+.module-table {
+    width: 100% !important;
+    border-collapse: collapse !important;
+}
+
+.model-row {
+    border-bottom: 1px solid rgba(0,0,0,0.05) !important;
+    transition: all 0.3s ease !important;
+}
+
+.model-row:hover {
+    background: rgba(44, 62, 80, 0.05) !important;
+}
+
+.model-name {
+    padding: 15px 10px !important;
+    font-weight: 500 !important;
+}
+
+.model-name a {
+    color: var(--admin-text) !important;
+    text-decoration: none !important;
+    display: flex !important;
+    align-items: center !important;
+    gap: 10px !important;
+    font-size: 1rem !important;
+    transition: all 0.3s ease !important;
+}
+
+.model-name a:hover {
+    color: var(--admin-secondary) !important;
+    transform: translateX(5px) !important;
+}
+
+.model-actions {
+    padding: 15px 10px !important;
+    text-align: right !important;
+}
+
+.add-link {
+    background: linear-gradient(135deg, var(--admin-accent), #e67e22) !important;
+    color: white !important;
+    padding: 8px 16px !important;
+    border-radius: 20px !important;
+    text-decoration: none !important;
+    font-size: 0.9rem !important;
+    font-weight: 500 !important;
+    transition: all 0.3s ease !important;
+    display: inline-flex !important;
+    align-items: center !important;
+    gap: 5px !important;
+}
+
+.add-link:hover {
+    transform: translateY(-2px) !important;
+    box-shadow: 0 4px 15px var(--admin-shadow) !important;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    #main {
+        margin: 10px !important;
+        padding: 15px !important;
+    }
+    
+    #content h1 {
+        font-size: 1.8rem !important;
+    }
+    
+    .object-tools a {
+        padding: 8px 15px !important;
+        font-size: 0.9rem !important;
+    }
+    
+    #result_list thead th, #result_list tbody td {
+        padding: 10px !important;
+    }
+    
+    .dashboard-stats {
+        grid-template-columns: 1fr !important;
+        gap: 15px !important;
+    }
+    
+    .admin-modules {
+        grid-template-columns: 1fr !important;
+        gap: 20px !important;
+    }
+    
+    .stat-card {
+        padding: 20px !important;
+        flex-direction: column !important;
+        text-align: center !important;
+    }
+    
+    .dashboard-header {
+        padding: 20px !important;
+    }
+    
+    .dashboard-header h2 {
+        font-size: 2rem !important;
+    }
+}
+
+/* Book Store Specific Styles */
+.model-category h2, .model-product h2 {
+    display: flex !important;
+    align-items: center !important;
+    gap: 10px !important;
+}
+
+.model-category h2::before {
+    content: "📚" !important;
+    font-size: 1.5rem !important;
+}
+
+.model-product h2::before {
+    content: "📖" !important;
+    font-size: 1.5rem !important;
+}
+
+.model-cart h2::before {
+    content: "🛒" !important;
+    font-size: 1.5rem !important;
+}
+
+.model-order h2::before {
+    content: "📦" !important;
+    font-size: 1.5rem !important;
+}
+
+.model-user h2::before {
+    content: "👤" !important;
+    font-size: 1.5rem !important;
+}

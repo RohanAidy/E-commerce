@@ -1,0 +1,60 @@
+{% extends 'base.html' %}
+
+{% block title %}Shopping Cart - E-commerce{% endblock %}
+
+{% block header_title %}Your Shopping Cart{% endblock %}
+
+{% block content %}
+<div class="cart-container">
+    <h1>Shopping Cart</h1>
+    
+    {% if cart_items %}
+    <div class="cart-items">
+        {% for item in cart_items %}
+        <div class="cart-item">
+            <div class="item-image">
+                {% if item.product.image %}
+                    <img src="{{ item.product.image.url }}" alt="{{ item.product.name }}">
+                {% endif %}
+            </div>
+            
+            <div class="item-details">
+                <h3><a href="{% url 'product_detail' item.product.id %}">{{ item.product.name }}</a></h3>
+                <div class="item-price">${{ item.product.price }}</div>
+                <div class="item-quantity">Quantity: {{ item.quantity }}</div>
+                <div class="item-total">Total: ${{ item.get_total_price }}</div>
+                
+                <a href="{% url 'remove_from_cart' item.id %}" class="btn btn-danger btn-sm">Remove</a>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+    
+    <div class="cart-summary">
+        <div class="summary-row">
+            <span>Subtotal:</span>
+            <span>${{ total }}</span>
+        </div>
+        <div class="summary-row">
+            <span>Shipping:</span>
+            <span>$0.00</span>
+        </div>
+        <div class="summary-row total">
+            <span>Total:</span>
+            <span>${{ total }}</span>
+        </div>
+        
+        <div class="checkout-actions">
+            <a href="#" class="btn btn-primary btn-large">Proceed to Checkout</a>
+            <a href="{% url 'product_list' %}" class="btn btn-secondary">Continue Shopping</a>
+        </div>
+    </div>
+    {% else %}
+    <div class="empty-cart">
+        <h2>Your cart is empty</h2>
+        <p>Looks like you haven't added anything to your cart yet.</p>
+        <a href="{% url 'product_list' %}" class="btn btn-primary">Start Shopping</a>
+    </div>
+    {% endif %}
+</div>
+{% endblock %}

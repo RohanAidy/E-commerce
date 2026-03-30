@@ -1,0 +1,126 @@
+{% extends 'base.html' %}
+
+{% block title %}Contact Us - Books Store{% endblock %}
+
+{% block header_title %}<span class="gradient-text">📧 Contact Us</span>{% endblock %}
+
+{% block header_subtitle %}<p>Get in touch with our Books Store team</p>{% endblock %}
+
+{% block content %}
+    <div class="contact-container">
+        <div class="contact-info">
+            <div class="info-card">
+                <div class="info-icon">
+                    <i class="fas fa-map-marker-alt"></i>
+                </div>
+                <div class="info-content">
+                    <h3>Visit Our Store</h3>
+                    <p>123 Book Street<br>Library District<br>Reading City, RC 12345</p>
+                </div>
+            </div>
+            
+            <div class="info-card">
+                <div class="info-icon">
+                    <i class="fas fa-phone"></i>
+                </div>
+                <div class="info-content">
+                    <h3>Call Us</h3>
+                    <p>Main: (555) 123-4567<br>Store: (555) 123-4568</p>
+                </div>
+            </div>
+            
+            <div class="info-card">
+                <div class="info-icon">
+                    <i class="fas fa-envelope"></i>
+                </div>
+                <div class="info-content">
+                    <h3>Email Us</h3>
+                    <p>General: info@bookstore.com<br>Orders: orders@bookstore.com<br>Support: support@bookstore.com</p>
+                </div>
+            </div>
+            
+            <div class="info-card">
+                <div class="info-icon">
+                    <i class="fas fa-clock"></i>
+                </div>
+                <div class="info-content">
+                    <h3>Store Hours</h3>
+                    <p>Monday - Friday: 9:00 AM - 8:00 PM<br>Saturday: 10:00 AM - 6:00 PM<br>Sunday: 12:00 PM - 5:00 PM</p>
+                </div>
+            </div>
+        </div>
+        
+        <div class="contact-form-section">
+            <div class="form-header">
+                <h2>Send Us a Message</h2>
+                <p>Have a question or feedback? We'd love to hear from you!</p>
+            </div>
+            
+            {% if messages %}
+                <div class="messages">
+                    {% for message in messages %}
+                        <div class="message {{ message.tags }}">
+                            {{ message }}
+                        </div>
+                    {% endfor %}
+                </div>
+            {% endif %}
+            
+            <form method="post" class="contact-form glass">
+                {% csrf_token %}
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="name" class="form-label">
+                            <i class="fas fa-user"></i> Your Name *
+                        </label>
+                        <input type="text" id="name" name="name" class="form-input" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="email" class="form-label">
+                            <i class="fas fa-envelope"></i> Your Email *
+                        </label>
+                        <input type="email" id="email" name="email" class="form-input" required>
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label for="subject" class="form-label">
+                        <i class="fas fa-heading"></i> Subject *
+                    </label>
+                    <input type="text" id="subject" name="subject" class="form-input" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="message" class="form-label">
+                        <i class="fas fa-comment"></i> Your Message *
+                    </label>
+                    <textarea id="message" name="message" class="form-textarea" rows="6" required></textarea>
+                </div>
+                
+                <div class="form-actions">
+                    <button type="submit" class="btn btn-primary btn-large">
+                        <i class="fas fa-paper-plane"></i> Send Message
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+    
+    <div class="additional-info">
+        <div class="info-section">
+            <h3>📚 About Books Store</h3>
+            <p>We're passionate about connecting readers with their next great book. Our knowledgeable staff is always ready to help you find the perfect book for any occasion or interest.</p>
+        </div>
+        
+        <div class="info-section">
+            <h3>🚚 Fast Shipping</h3>
+            <p>Free shipping on orders over $50. Standard shipping delivers within 3-5 business days. Express shipping available for urgent needs.</p>
+        </div>
+        
+        <div class="info-section">
+            <h3>💳 Secure Payment</h3>
+            <p>We accept all major credit cards, PayPal, and secure online payments. Your transaction is always protected and encrypted.</p>
+        </div>
+    </div>
+{% endblock %}

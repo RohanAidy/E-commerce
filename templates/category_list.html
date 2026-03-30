@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+
+{% block title %}Categories - E-commerce{% endblock %}
+
+{% block header_title %}Product Categories{% endblock %}
+
+{% block header_subtitle %}<p>Browse our wide range of product categories</p>{% endblock %}
+
+{% block content %}
+    {% if categories %}
+    <section>
+        <div class="categories-grid">
+            {% for cat in categories %}
+            <div class="category-card">
+                {% if cat.image %}
+                    <img src="{{ cat.image.url }}" alt="{{ cat.name }}">
+                {% endif %}
+                <h3><a href="{% url 'products_by_category' cat.id %}">{{ cat.name }}</a></h3>
+                {% if cat.description %}
+                    <p>{{ cat.description|truncatewords:10 }}</p>
+                {% endif %}
+            </div>
+            {% endfor %}
+        </div>
+    </section>
+    {% else %}
+    <div class="empty-state">
+        <p>No categories available yet.</p>
+    </div>
+    {% endif %}
+{% endblock %}

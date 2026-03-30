@@ -1,0 +1,70 @@
+{% extends 'base.html' %}
+
+{% block title %}Home - E-commerce{% endblock %}
+
+{% block header_title %}Welcome to Books Store{% endblock %}
+
+{% block header_subtitle %}<p>Discover your next favorite book from our curated collection!</p>{% endblock %}
+
+{% block content %}
+    {% if categories %}
+    <section class="mb-3">
+        <h2>📖 Browse by Genre</h2>
+        <div class="categories-grid">
+            {% for cat in categories %}
+            <div class="category-card">
+                {% if cat.image %}
+                    <img src="{{ cat.image.url }}" alt="{{ cat.name }}">
+                {% endif %}
+                <h3><a href="{% url 'products_by_category' cat.id %}">{{ cat.name }}</a></h3>
+            </div>
+            {% endfor %}
+        </div>
+    </section>
+    {% endif %}
+    
+    {% if products %}
+    <section class="fade-in">
+        <h2 class="gradient-text">⭐ Featured Books</h2>
+        <div class="products-grid">
+            {% for prod in products|slice:":6" %}
+            <div class="product-card hover-lift">
+                {% if prod.featured %}
+                    <span class="badge badge-featured">Featured</span>
+                {% endif %}
+                {% if prod.image %}
+                    <img src="{{ prod.image.url }}" alt="{{ prod.name }}" class="product-image">
+                {% else %}
+                    <div class="product-image"></div>
+                {% endif %}
+                <div class="product-info">
+                    <h3>{{ prod.name }}</h3>
+                    <div class="book-author">by {{ prod.author|default:"Unknown Author" }}</div>
+                    <div class="product-price">${{ prod.price }}</div>
+                    <div class="book-details">
+                        <span class="book-format">{{ prod.get_book_format_display }}</span>
+                        {% if prod.pages %}<span class="book-pages">{{ prod.pages }} pages</span>{% endif %}
+                        {% if prod.genre %}<span class="book-genre">{{ prod.genre }}</span>{% endif %}
+                    </div>
+                    <div class="product-category">
+                        Category: <a href="{% url 'products_by_category' prod.category.id %}">{{ prod.category.name }}</a>
+                    </div>
+                    {% if user.is_authenticated %}
+                    <div class="product-actions">
+                        <a href="{% url 'add_to_cart' prod.id %}" class="btn btn-primary btn-sm"><i class="fas fa-cart-plus"></i> Add to Cart</a>
+                        <a href="{% url 'add_to_wishlist' prod.id %}" class="btn btn-secondary btn-sm"><i class="fas fa-heart"></i> Reading List</a>
+                    </div>
+                    {% endif %}
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </section>
+    {% endif %}
+    
+    {% if not categories and not products %}
+    <div class="empty-state">
+        <p>No products or categories available yet. Check back soon!</p>
+    </div>
+    {% endif %}
+{% endblock %}

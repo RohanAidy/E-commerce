@@ -1,0 +1,99 @@
+{% extends 'base.html' %}
+
+{% block title %}Book Collection - Books Store{% endblock %}
+
+{% block header_title %}<span class="gradient-text">📚 Book Collection</span>{% endblock %}
+
+{% block header_subtitle %}<p>Discover your next great read from our curated collection</p>{% endblock %}
+
+{% block content %}
+    <!-- Advanced Search -->
+    <div class="search-container mb-3">
+        <form method="get" class="search-form glass">
+            <div class="search-row">
+                <div class="search-input-wrapper">
+                    <i class="fas fa-search search-icon"></i>
+                    <input type="text" name="search" placeholder="Search books, authors, ISBN..." value="{{ request.GET.search }}" class="search-input">
+                </div>
+                <div class="search-input-wrapper">
+                    <i class="fas fa-user-edit search-icon"></i>
+                    <input type="text" name="author" placeholder="Author name..." value="{{ request.GET.author }}" class="search-input">
+                </div>
+            </div>
+            <div class="filter-row">
+                <div class="filter-select-wrapper">
+                    <i class="fas fa-theater-masks filter-icon"></i>
+                    <select name="genre" class="filter-select">
+                        <option value="">All Genres</option>
+                        <option value="Fiction" {% if request.GET.genre == 'Fiction' %}selected{% endif %}>Fiction</option>
+                        <option value="Non-Fiction" {% if request.GET.genre == 'Non-Fiction' %}selected{% endif %}>Non-Fiction</option>
+                        <option value="Mystery" {% if request.GET.genre == 'Mystery' %}selected{% endif %}>Mystery</option>
+                        <option value="Romance" {% if request.GET.genre == 'Romance' %}selected{% endif %}>Romance</option>
+                        <option value="Sci-Fi" {% if request.GET.genre == 'Sci-Fi' %}selected{% endif %}>Sci-Fi</option>
+                        <option value="Fantasy" {% if request.GET.genre == 'Fantasy' %}selected{% endif %}>Fantasy</option>
+                    </select>
+                </div>
+                
+                <div class="filter-select-wrapper">
+                    <i class="fas fa-book-open filter-icon"></i>
+                    <select name="format" class="filter-select">
+                        <option value="">All Formats</option>
+                        <option value="hardcover" {% if request.GET.format == 'hardcover' %}selected{% endif %}>Hardcover</option>
+                        <option value="paperback" {% if request.GET.format == 'paperback' %}selected{% endif %}>Paperback</option>
+                        <option value="ebook" {% if request.GET.format == 'ebook' %}selected{% endif %}>E-book</option>
+                        <option value="audiobook" {% if request.GET.format == 'audiobook' %}selected{% endif %}>Audiobook</option>
+                    </select>
+                </div>
+                
+                <button type="submit" class="btn btn-primary"><i class="fas fa-search"></i> Search Books</button>
+            </div>
+        </form>
+    </div>
+
+    {% if products %}
+    <section class="fade-in">
+        <div class="products-grid">
+            {% for prod in products %}
+            <div class="product-card hover-lift">
+                {% if prod.stock <= 5 %}
+                    <span class="badge badge-sale">Low Stock</span>
+                {% endif %}
+                {% if prod.image %}
+                    <img src="{{ prod.image.url }}" alt="{{ prod.name }}" class="product-image">
+                {% else %}
+                    <div class="product-image"></div>
+                {% endif %}
+                <div class="product-info">
+                    <h3>{{ prod.name }}</h3>
+                    <div class="book-author">by {{ prod.author|default:"Unknown Author" }}</div>
+                    <div class="product-price">${{ prod.price }}</div>
+                    <div class="book-details">
+                        <span class="book-format">{{ prod.get_book_format_display }}</span>
+                        {% if prod.pages %}<span class="book-pages">{{ prod.pages }} pages</span>{% endif %}
+                        {% if prod.genre %}<span class="book-genre">{{ prod.genre }}</span>{% endif %}
+                    </div>
+                    <div class="product-category">
+                        Category: <a href="{% url 'products_by_category' prod.category.id %}">{{ prod.category.name }}</a>
+                    </div>
+                    {% if prod.description %}
+                        <p>{{ prod.description|truncatewords:15 }}</p>
+                    {% endif %}
+                    {% if user.is_authenticated %}
+                    <div class="product-actions">
+                        <a href="{% url 'add_to_cart' prod.id %}" class="btn btn-primary btn-sm"><i class="fas fa-cart-plus"></i> Add to Cart</a>
+                        <a href="{% url 'add_to_wishlist' prod.id %}" class="btn btn-secondary btn-sm"><i class="fas fa-heart"></i> Reading List</a>
+                    </div>
+                    {% endif %}
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </section>
+    {% else %}
+    <div class="empty-state fade-in">
+        <h3>No products found</h3>
+        <p>Try adjusting your search or browse our categories.</p>
+        <a href="{% url 'category_list' %}" class="btn btn-primary">Browse Categories</a>
+    </div>
+    {% endif %}
+{% endblock %}

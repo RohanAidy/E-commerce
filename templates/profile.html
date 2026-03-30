@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+
+{% block title %}My Profile - E-commerce{% endblock %}
+
+{% block header_title %}My Profile{% endblock %}
+
+{% block content %}
+<div class="profile-container">
+    <h1>My Profile</h1>
+    
+    <div class="profile-content">
+        <div class="profile-info">
+            <h3>Account Information</h3>
+            <p><strong>Username:</strong> {{ user.username }}</p>
+            <p><strong>Email:</strong> {{ user.email }}</p>
+            <p><strong>First Name:</strong> {{ user.first_name }}</p>
+            <p><strong>Last Name:</strong> {{ user.last_name }}</p>
+            <p><strong>Member Since:</strong> {{ user.date_joined|date:"F j, Y" }}</p>
+        </div>
+        
+        <div class="profile-sidebar">
+            <div class="sidebar-section">
+                <h3>Quick Links</h3>
+                <ul>
+                    <li><a href="{% url 'cart' %}">🛒 Shopping Cart</a></li>
+                    <li><a href="{% url 'wishlist' %}">❤️ Wishlist</a></li>
+                    <li><a href="{% url 'logout' %}">🚪 Logout</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+{% endblock %}

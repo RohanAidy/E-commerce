@@ -1,0 +1,204 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Books Store{% endblock %}</title>
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Inter:wght@300;400;500;600;700&family=Crimson+Text:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/brands.min.css">
+    
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+</head>
+<body>
+    <header>
+        <div class="container">
+            <h1>📚 {% block header_title %}Welcome to Books Store{% endblock %}</h1>
+            {% block header_subtitle %}{% endblock %}
+        </div>
+    </header>
+    
+    <nav>
+        <div class="container">
+            <div class="nav-brand">
+                <a href="{% url 'home' %}">
+                    <i class="fas fa-book-reader"></i>
+                    <span>Books Store</span>
+                </a>
+            </div>
+            
+            <div class="nav-menu">
+                <div class="nav-links">
+                    <a href="{% url 'home' %}" class="nav-link"><i class="fas fa-home"></i> Home</a>
+                    
+                    <div class="nav-dropdown">
+                        <a href="{% url 'category_list' %}" class="nav-link dropdown-toggle">
+                            <i class="fas fa-book-open"></i> Categories <i class="fas fa-chevron-down"></i>
+                        </a>
+                        <div class="dropdown-menu">
+                            <a href="{% url 'category_list' %}"><i class="fas fa-list"></i> All Categories</a>
+                            <a href="{% url 'hierarchical_categories' %}"><i class="fas fa-sitemap"></i> Browse by Tree</a>
+                            <a href="{% url 'mptt_categories' %}"><i class="fas fa-layer-group"></i> MPTT Tree</a>
+                            <a href="#"><i class="fas fa-dragon"></i> Fantasy</a>
+                            <a href="#"><i class="fas fa-rocket"></i> Sci-Fi</a>
+                            <a href="#"><i class="fas fa-heart"></i> Romance</a>
+                            <a href="#"><i class="fas fa-user-secret"></i> Mystery</a>
+                            <a href="#"><i class="fas fa-graduation-cap"></i> Educational</a>
+                        </div>
+                    </div>
+                    
+                    <a href="{% url 'product_list' %}" class="nav-link"><i class="fas fa-book"></i> All Books</a>
+                    <a href="#" class="nav-link"><i class="fas fa-fire"></i> New Releases</a>
+                    <a href="#" class="nav-link"><i class="fas fa-star"></i> Bestsellers</a>
+                    <a href="{% url 'contact' %}" class="nav-link"><i class="fas fa-envelope"></i> Contact</a>
+                </div>
+                
+                <div class="nav-actions">
+                    {% if user.is_authenticated %}
+                        <a href="{% url 'cart' %}" class="nav-link cart-link">
+                            <i class="fas fa-shopping-cart"></i> 
+                            <span>Cart</span>
+                            <span class="cart-count">0</span>
+                        </a>
+                        <a href="{% url 'wishlist' %}" class="nav-link">
+                            <i class="fas fa-heart"></i> 
+                            <span>Reading List</span>
+                        </a>
+                        <div class="nav-dropdown">
+                            <a href="#" class="nav-link dropdown-toggle">
+                                <i class="fas fa-user"></i> 
+                                <span>{{ user.username|title }}</span> 
+                                <i class="fas fa-chevron-down"></i>
+                            </a>
+                            <div class="dropdown-menu">
+                                <a href="{% url 'profile' %}"><i class="fas fa-user-edit"></i> My Profile</a>
+                                <a href="#"><i class="fas fa-history"></i> Order History</a>
+                                <a href="#"><i class="fas fa-cog"></i> Settings</a>
+                                <div class="dropdown-divider"></div>
+                                <a href="{% url 'logout' %}"><i class="fas fa-sign-out-alt"></i> Logout</a>
+                            </div>
+                        </div>
+                    {% else %}
+                        <a href="{% url 'login' %}" class="nav-link"><i class="fas fa-sign-in-alt"></i> Login</a>
+                        <a href="{% url 'register' %}" class="nav-link btn-nav"><i class="fas fa-user-plus"></i> Register</a>
+                    {% endif %}
+                </div>
+            </div>
+            
+            <div class="nav-toggle">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </nav>
+    
+    <main>
+        <div class="container">
+            {% block content %}
+            <!-- Page content goes here -->
+            {% endblock %}
+        </div>
+    </main>
+    
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3><i class="fas fa-store"></i> Books Store</h3>
+                    <p>Your trusted online bookstore for quality reads and exceptional service.</p>
+                    <div class="social-links">
+                        <a href="#" aria-label="Facebook"><i class="fab fa-facebook"></i></a>
+                        <a href="#" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+                        <a href="https://www.instagram.com/t_kalsang_?igsh=MTViZnFrY3c1OXF5eg==" aria-label="Instagram" target="_blank"><i class="fab fa-instagram"></i></a>
+                        <a href="#" aria-label="LinkedIn"><i class="fab fa-linkedin"></i></a>
+                    </div>
+                </div>
+                
+                <div class="footer-section">
+                    <h3><i class="fas fa-link"></i> Quick Links</h3>
+                    <ul>
+                        <li><a href="{% url 'home' %}"><i class="fas fa-home"></i> Home</a></li>
+                        <li><a href="{% url 'product_list' %}"><i class="fas fa-book"></i> All Books</a></li>
+                        <li><a href="{% url 'category_list' %}"><i class="fas fa-list"></i> Categories</a></li>
+                        <li><a href="{% url 'contact' %}"><i class="fas fa-envelope"></i> Contact Us</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-section">
+                    <h3><i class="fas fa-phone"></i> Contact Info</h3>
+                    <ul>
+                        <li><i class="fas fa-envelope"></i> <a href="mailto:arjunaidee3@gmail.com">arjunaidee3@gmail.com</a></li>
+                        <li><i class="fas fa-envelope"></i> <a href="mailto:hydraomaahoung@gmail.com">hydraomaahoung@gmail.com</a></li>
+                        <li><i class="fas fa-phone"></i> <a href="tel:+9779764771365">+977 976-477-1365</a></li>
+                        <li><i class="fas fa-map-marker-alt"></i> Reading City, RC 12345</li>
+                    </ul>
+                </div>
+                
+                <div class="footer-section">
+                    <h3><i class="fas fa-credit-card"></i> Payment Options</h3>
+                    <div class="payment-options">
+                        <div class="payment-option">
+                            <i class="fab fa-paypal"></i>
+                            <span>PayPal</span>
+                        </div>
+                        <div class="payment-option">
+                            <i class="fas fa-wifi"></i>
+                            <span>Esewa</span>
+                        </div>
+                        <div class="payment-option">
+                            <i class="fas fa-university"></i>
+                            <span>AnyOnlineBanking</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+    </footer>
+    
+    <script>
+        // Mobile Navigation Toggle
+        document.addEventListener('DOMContentLoaded', function() {
+            const navToggle = document.querySelector('.nav-toggle');
+            const navMenu = document.querySelector('.nav-menu');
+            
+            if (navToggle && navMenu) {
+                navToggle.addEventListener('click', function() {
+                    navMenu.classList.toggle('active');
+                    
+                    // Animate hamburger menu
+                    const spans = navToggle.querySelectorAll('span');
+                    spans.forEach((span, index) => {
+                        if (navMenu.classList.contains('active')) {
+                            if (index === 0) span.style.transform = 'rotate(45deg) translateY(8px)';
+                            if (index === 1) span.style.opacity = '0';
+                            if (index === 2) span.style.transform = 'rotate(-45deg) translateY(-8px)';
+                        } else {
+                            span.style.transform = '';
+                            span.style.opacity = '';
+                        }
+                    });
+                });
+                
+                // Close menu when clicking outside
+                document.addEventListener('click', function(e) {
+                    if (!navToggle.contains(e.target) && !navMenu.contains(e.target)) {
+                        navMenu.classList.remove('active');
+                        const spans = navToggle.querySelectorAll('span');
+                        spans.forEach(span => {
+                            span.style.transform = '';
+                            span.style.opacity = '';
+                        });
+                    }
+                });
+            }
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,122 @@
+{% extends "admin/base_site.html" %}
+{% load static %}
+
+{% block extrastyle %}{{ block.super }}
+<link rel="stylesheet" href="{% static 'admin/css/admin_custom.css' %}">
+{% endblock %}
+
+{% block branding %}
+<h1 id="site-name">
+    <a href="{% url 'admin:index' %}">
+        <i class="fas fa-book-reader"></i> Books Store Admin
+    </a>
+</h1>
+{% endblock %}
+
+{% block content %}
+<div id="content-main">
+    <div class="admin-dashboard">
+        <div class="dashboard-header">
+            <h2>📚 Books Store Dashboard</h2>
+            <p>Welcome to your Books Store administration panel</p>
+        </div>
+        
+        <div class="dashboard-stats">
+            <div class="stat-card">
+                <div class="stat-icon">
+                    <i class="fas fa-book"></i>
+                </div>
+                <div class="stat-content">
+                    <h3>{{ model_count|length }}</h3>
+                    <p>Models</p>
+                </div>
+            </div>
+            
+            <div class="stat-card">
+                <div class="stat-icon">
+                    <i class="fas fa-layer-group"></i>
+                </div>
+                <div class="stat-content">
+                    <h3>Categories</h3>
+                    <p>Book Categories</p>
+                </div>
+            </div>
+            
+            <div class="stat-card">
+                <div class="stat-icon">
+                    <i class="fas fa-shopping-cart"></i>
+                </div>
+                <div class="stat-content">
+                    <h3>Orders</h3>
+                    <p>Customer Orders</p>
+                </div>
+            </div>
+            
+            <div class="stat-card">
+                <div class="stat-icon">
+                    <i class="fas fa-users"></i>
+                </div>
+                <div class="stat-content">
+                    <h3>Users</h3>
+                    <p>Registered Users</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="admin-modules">
+            {% for app in app_list %}
+            <div class="app-module">
+                <div class="module-header">
+                    <h3>
+                        {% if app.name == 'Myapp' %}
+                            <i class="fas fa-store"></i> Books Store
+                        {% else %}
+                            {{ app.name }}
+                        {% endif %}
+                    </h3>
+                </div>
+                <div class="module-content">
+                    <table class="module-table">
+                        {% for model in app.models %}
+                        <tr class="model-row">
+                            <td class="model-name">
+                                <a href="{{ model.admin_url }}">
+                                    {% if model.name == 'Categories' %}
+                                        <i class="fas fa-sitemap"></i>
+                                    {% elif model.name == 'Products' %}
+                                        <i class="fas fa-book"></i>
+                                    {% elif model.name == 'Carts' %}
+                                        <i class="fas fa-shopping-cart"></i>
+                                    {% elif model.name == 'Orders' %}
+                                        <i class="fas fa-box"></i>
+                                    {% elif model.name == 'Users' %}
+                                        <i class="fas fa-users"></i>
+                                    {% elif model.name == 'Wishlists' %}
+                                        <i class="fas fa-heart"></i>
+                                    {% endif %}
+                                    {{ model.name }}
+                                </a>
+                            </td>
+                            <td class="model-actions">
+                                {% if model.add_url %}
+                                <a href="{{ model.add_url }}" class="add-link">
+                                    <i class="fas fa-plus"></i> Add
+                                </a>
+                                {% endif %}
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </table>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block footer %}
+<div id="footer">
+    <p>© 2024 Books Store Admin - Professional Bookstore Management System</p>
+</div>
+{% endblock %}

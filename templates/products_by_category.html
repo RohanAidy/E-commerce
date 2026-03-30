@@ -1,0 +1,43 @@
+{% extends 'base.html' %}
+
+{% block title %}{{ category.name }} - E-commerce{% endblock %}
+
+{% block header_title %}{{ category.name }}{% endblock %}
+
+{% block header_subtitle %}
+    {% if category.description %}
+        <p>{{ category.description }}</p>
+    {% endif %}
+{% endblock %}
+
+{% block content %}
+    {% if products %}
+    <section>
+        <div class="products-grid">
+            {% for prod in products %}
+            <div class="product-card">
+                {% if prod.image %}
+                    <img src="{{ prod.image.url }}" alt="{{ prod.name }}" class="product-image">
+                {% else %}
+                    <div class="product-image"></div>
+                {% endif %}
+                <div class="product-info">
+                    <h3>{{ prod.name }}</h3>
+                    <div class="product-price">${{ prod.price }}</div>
+                    <div class="product-category">
+                        Category: {{ prod.category.name }}
+                    </div>
+                    {% if prod.description %}
+                        <p>{{ prod.description|truncatewords:15 }}</p>
+                    {% endif %}
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </section>
+    {% else %}
+    <div class="empty-state">
+        <p>No products available in {{ category.name }} category yet.</p>
+    </div>
+    {% endif %}
+{% endblock %}

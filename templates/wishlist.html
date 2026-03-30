@@ -1,0 +1,46 @@
+{% extends 'base.html' %}
+
+{% block title %}Wishlist - E-commerce{% endblock %}
+
+{% block header_title %}Your Wishlist{% endblock %}
+
+{% block content %}
+<div class="wishlist-container">
+    <h1>Your Wishlist</h1>
+    
+    {% if wishlist_items %}
+    <div class="wishlist-items">
+        {% for item in wishlist_items %}
+        <div class="wishlist-item">
+            <div class="item-image">
+                {% if item.product.image %}
+                    <img src="{{ item.product.image.url }}" alt="{{ item.product.name }}">
+                {% endif %}
+            </div>
+            
+            <div class="item-details">
+                <h3><a href="{% url 'product_detail' item.product.id %}">{{ item.product.name }}</a></h3>
+                <div class="item-price">${{ item.product.price }}</div>
+                <div class="item-category">
+                    Category: <a href="{% url 'products_by_category' item.product.category.id %}">{{ item.product.category.name }}</a>
+                </div>
+                <div class="item-actions">
+                    <a href="{% url 'add_to_cart' item.product.id %}" class="btn btn-primary btn-sm">Add to Cart</a>
+                    <a href="{% url 'remove_from_wishlist' item.id %}" class="btn btn-danger btn-sm">Remove</a>
+                </div>
+                <div class="item-date">
+                    Added on {{ item.added_at|date:"F j, Y" }}
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+    {% else %}
+    <div class="empty-wishlist">
+        <h2>Your wishlist is empty</h2>
+        <p>Start adding items you love to your wishlist!</p>
+        <a href="{% url 'product_list' %}" class="btn btn-primary">Browse Products</a>
+    </div>
+    {% endif %}
+</div>
+{% endblock %}

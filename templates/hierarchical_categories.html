@@ -1,0 +1,116 @@
+{% extends 'base.html' %}
+
+{% block title %}Categories - Books Store{% endblock %}
+
+{% block header_title %}<span class="gradient-text">🌳 Browse Book Categories</span>{% endblock %}
+
+{% block header_subtitle %}<p>Explore our beautifully organized collection of book categories</p>{% endblock %}
+
+{% block content %}
+    <div class="categories-hero">
+        <div class="hero-content">
+            <h2>📚 Discover Your Next Great Read</h2>
+            <p>Browse through our carefully curated categories to find the perfect book for your mood and interests</p>
+            <div class="hero-stats">
+                <div class="hero-stat">
+                    <span class="stat-number">{{ categories|length }}</span>
+                    <span class="stat-label">Categories</span>
+                </div>
+                <div class="hero-stat">
+                    <span class="stat-number">{% for cat in categories %}{{ cat.get_descendant_count }}{% if not for.last %}+{% endif %}{% endfor %}</span>
+                    <span class="stat-label">Total Books</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    {% if categories %}
+    <div class="categories-modern">
+        <div class="categories-grid">
+            {% for category in categories %}
+                <div class="category-card-modern">
+                    <div class="category-header">
+                        {% if category.image %}
+                            <div class="category-image-wrapper">
+                                <img src="{{ category.image.url }}" alt="{{ category.name }}" class="category-image">
+                                <div class="image-overlay"></div>
+                            </div>
+                        {% else %}
+                            <div class="category-icon-modern">
+                                <i class="fas fa-book-open"></i>
+                            </div>
+                        {% endif %}
+                        <div class="category-title-section">
+                            <h3>{{ category.name }}</h3>
+                            {% if category.description %}
+                                <p class="category-description">{{ category.description|truncatewords:15 }}</p>
+                            {% endif %}
+                        </div>
+                    </div>
+                    
+                    <div class="category-body">
+                        <div class="category-stats-modern">
+                            <div class="stat-item">
+                                <i class="fas fa-book"></i>
+                                <span class="stat-value">{{ category.products.count }}</span>
+                                <span class="stat-label">Books</span>
+                            </div>
+                            {% if category.get_descendant_count %}
+                            <div class="stat-item">
+                                <i class="fas fa-sitemap"></i>
+                                <span class="stat-value">{{ category.get_descendant_count }}</span>
+                                <span class="stat-label">Subcategories</span>
+                            </div>
+                            {% endif %}
+                        </div>
+                        
+                        {% if category.get_children %}
+                        <div class="subcategories-modern">
+                            <h4>Subcategories</h4>
+                            <div class="subcategory-grid">
+                                {% for child in category.get_children %}
+                                    <a href="{% url 'products_by_category' child.id %}" class="subcategory-card">
+                                        <div class="subcategory-icon">
+                                            {% if child.get_children %}
+                                                <i class="fas fa-folder"></i>
+                                            {% else %}
+                                                <i class="fas fa-file"></i>
+                                            {% endif %}
+                                        </div>
+                                        <div class="subcategory-info">
+                                            <span class="subcategory-name">{{ child.name }}</span>
+                                            <span class="subcategory-count">{{ child.products.count }} books</span>
+                                        </div>
+                                    </a>
+                                {% endfor %}
+                            </div>
+                        </div>
+                        {% endif %}
+                    </div>
+                    
+                    <div class="category-footer">
+                        <a href="{% url 'products_by_category' category.id %}" class="btn-browse">
+                            <i class="fas fa-arrow-right"></i>
+                            Browse All Books
+                        </a>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+    {% endif %}
+
+    {% if not categories %}
+    <div class="empty-state-modern">
+        <div class="empty-icon">
+            <i class="fas fa-folder-open"></i>
+        </div>
+        <h3>No Categories Yet</h3>
+        <p>Our book collection is being organized. Check back soon for amazing categories!</p>
+        <a href="{% url 'home' %}" class="btn btn-primary">
+            <i class="fas fa-home"></i>
+            Return to Home
+        </a>
+    </div>
+    {% endif %}
+{% endblock %}

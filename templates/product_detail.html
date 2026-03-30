@@ -1,0 +1,83 @@
+{% extends 'base.html' %}
+
+{% block title %}{{ product.name }} - E-commerce{% endblock %}
+
+{% block content %}
+<div class="product-detail">
+    <div class="product-images">
+        {% if product.image %}
+            <img src="{{ product.image.url }}" alt="{{ product.name }}" class="main-image">
+        {% endif %}
+    </div>
+    
+    <div class="product-info">
+        <h1>{{ product.name }}</h1>
+        <div class="price">${{ product.price }}</div>
+        
+        <div class="meta-info">
+            <p><strong>Category:</strong> <a href="{% url 'products_by_category' product.category.id %}">{{ product.category.name }}</a></p>
+            {% if product.stock %}
+                <p><strong>In Stock:</strong> {{ product.stock }} items</p>
+            {% endif %}
+        </div>
+        
+        {% if product.description %}
+            <div class="description">
+                <h3>Description</h3>
+                <p>{{ product.description }}</p>
+            </div>
+        {% endif %}
+        
+        <div class="actions">
+            <a href="{% url 'add_to_cart' product.id %}" class="btn btn-primary">Add to Cart</a>
+            <a href="{% url 'add_to_wishlist' product.id %}" class="btn btn-secondary">Add to Wishlist</a>
+        </div>
+    </div>
+</div>
+
+{% if related_products %}
+<div class="related-products">
+    <h2>Related Products</h2>
+    <div class="products-grid">
+        {% for related_product in related_products %}
+        <div class="product-card">
+            {% if related_product.image %}
+                <img src="{{ related_product.image.url }}" alt="{{ related_product.name }}" class="product-image">
+            {% endif %}
+            <div class="product-info">
+                <h3><a href="{% url 'product_detail' related_product.id %}">{{ related_product.name }}</a></h3>
+                <div class="product-price">${{ related_product.price }}</div>
+                <div class="product-category">
+                    Category: <a href="{% url 'products_by_category' related_product.category.id %}">{{ related_product.category.name }}</a>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+{% endif %}
+
+{% if reviews %}
+<div class="reviews">
+    <h2>Customer Reviews</h2>
+    {% for review in reviews %}
+    <div class="review">
+        <div class="review-header">
+            <strong>{{ review.user.username }}</strong>
+            <div class="rating">
+                {% for i in review.rating %}⭐{% endfor %}
+            </div>
+        </div>
+        <div class="review-comment">
+            {{ review.comment }}
+        </div>
+        <div class="review-date">
+            {{ review.created_at|date:"F j, Y" }}
+        </div>
+    </div>
+    {% empty %}
+    <p>No reviews yet. Be the first to review this product!</p>
+    {% endfor %}
+</div>
+{% endif %}
+{% endblock %}

@@ -1,10 +1,14 @@
 {% load static %}
+{% load django_bootstrap5 %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{% block title %}Books Store{% endblock %}</title>
+    
+    <!-- Bootstrap5 CSS -->
+    {% bootstrap_css %}
     
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -115,7 +119,7 @@
                     <h3><i class="fas fa-store"></i> Books Store</h3>
                     <p>Your trusted online bookstore for quality reads and exceptional service.</p>
                     <div class="social-links">
-                        <a href="#" aria-label="Facebook"><i class="fab fa-facebook"></i></a>
+                        <a href="https://www.facebook.com/arjun.aidee.54" aria-label="Facebook"><i class="fab fa-facebook"></i></a>
                         <a href="#" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
                         <a href="https://www.instagram.com/t_kalsang_?igsh=MTViZnFrY3c1OXF5eg==" aria-label="Instagram" target="_blank"><i class="fab fa-instagram"></i></a>
                         <a href="#" aria-label="LinkedIn"><i class="fab fa-linkedin"></i></a>
@@ -128,7 +132,7 @@
                         <li><a href="{% url 'home' %}"><i class="fas fa-home"></i> Home</a></li>
                         <li><a href="{% url 'product_list' %}"><i class="fas fa-book"></i> All Books</a></li>
                         <li><a href="{% url 'category_list' %}"><i class="fas fa-list"></i> Categories</a></li>
-                        <li><a href="{% url 'contact' %}"><i class="fas fa-envelope"></i> Contact Us</a></li>
+                        <!-- <li><a href="{% url 'contact' %}"><i class="fas fa-envelope"></i> Contact Us</a></li> -->
                     </ul>
                 </div>
                 
@@ -147,15 +151,15 @@
                     <div class="payment-options">
                         <div class="payment-option">
                             <i class="fab fa-paypal"></i>
-                            <span>PayPal</span>
+                            <!-- <span>PayPal</span> -->
                         </div>
                         <div class="payment-option">
-                            <i class="fas fa-wifi"></i>
+                            <img src="https://upload.wikimedia.org/wikipedia/commons/7/71/Esewa_logo.png" class="bi" width="32" height="32" alt="eSewa">
                             <span>Esewa</span>
                         </div>
                         <div class="payment-option">
                             <i class="fas fa-university"></i>
-                            <span>AnyOnlineBanking</span>
+                            <!-- <span>AnyOnlineBanking</span> -->
                         </div>
                     </div>
                 </div>
@@ -200,5 +204,8 @@
             }
         });
     </script>
+    
+    <!-- Bootstrap5 JavaScript -->
+    {% bootstrap_javascript %}
 </body>
 </html>

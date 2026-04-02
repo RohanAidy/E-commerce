@@ -3,15 +3,11 @@ from django.contrib.auth import login, logout, authenticate
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from django.contrib.auth.models import User
-from django.contrib.auth.forms import UserCreationForm
+from .forms import CustomUserCreationForm, CustomAuthenticationForm, UserProfileForm
 from django.core.mail import send_mail
 from django.conf import settings
 from .models import category, product, Cart, CartItem, Order, OrderItem, Review, Wishlist
 from django.db.models import Q, Sum, Count
-from .forms import UserCreationForm, AuthenticationForm
-
-# CustomUser imports temporarily commented out
-# from .forms import CustomUserCreationForm, CustomAuthenticationForm, UserProfileForm
 
 # Create your views here.
 
@@ -97,19 +93,19 @@ def products_by_category(request, category_id):
 
 def register(request):
     if request.method == 'POST':
-        form = UserCreationForm(request.POST)
+        form = CustomUserCreationForm(request.POST)
         if form.is_valid():
             user = form.save()
             login(request, user)
             messages.success(request, 'Registration successful!')
             return redirect('home')
     else:
-        form = UserCreationForm()
+        form = CustomUserCreationForm()
     return render(request, 'register.html', {'form': form})
 
 def user_login(request):
     if request.method == 'POST':
-        form = AuthenticationForm(request, data=request.POST)
+        form = CustomAuthenticationForm(request, data=request.POST)
         if form.is_valid():
             username = form.cleaned_data.get('username')
             password = form.cleaned_data.get('password')
@@ -121,7 +117,7 @@ def user_login(request):
             else:
                 messages.error(request, 'Invalid username or password.')
     else:
-        form = AuthenticationForm()
+        form = CustomAuthenticationForm()
     return render(request, 'login.html', {'form': form})
 
 def user_logout(request):
